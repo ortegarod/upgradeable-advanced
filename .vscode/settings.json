@@ -1,0 +1,7 @@
+{
+    "solidity-va.outline.inheritance.show": false,
+    "solidity-va.outline.pragmas.show": false,
+    "solidity-va.outline.var.storage_annotations": false,
+    "solidity-va.parser.parseImports": false,
+    "solidity-va.preview.dot": false
+}

@@ -25,11 +25,21 @@ module.exports = async function (deployer, network, accounts) {
     // update address to new functional DogsUpdated contract
     proxy.upgrade(dogsUpdated.address);
 
-    // gets number of dogs from proxy contract storage
+    // fool Truffle once again to think proxyDog has all functions
+    proxyDog = await DogsUpdated.at(proxy.address);
+
+    // initialize proxy state
+    proxyDog.initialize(accounts[0]);
+
+    // check that storage remained
     nrOfDogs = await proxyDog.getNumberOfDogs();
     console.log("After update: " + nrOfDogs.toNumber());
     
+    // set the nr of dogs through the proxy with the new functional contract
     await proxyDog.setNumberOfDogs(30);
 
+    // gets number of dogs from proxy contract storage after 2nd update - check if works with new functional contract
+    nrOfDogs = await proxyDog.getNumberOfDogs();
+    console.log("After change: " + nrOfDogs.toNumber());
 
 }
